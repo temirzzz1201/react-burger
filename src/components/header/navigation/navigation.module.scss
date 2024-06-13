@@ -1,0 +1,30 @@
+.nav {
+  &__navigation {
+    display: flex;
+  }
+  button {
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+
+  &__navigation__block {
+    display: flex;
+    align-items: center;
+    color: #fff;
+
+    cursor: pointer;
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__navigation__block_indent {
+    margin-right: 48px;
+  }
+
+  &__navigation_indent {
+    margin-right: 132px;
+  }
+}

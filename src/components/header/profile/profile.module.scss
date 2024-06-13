@@ -1,0 +1,15 @@
+.profile {
+  &__signin {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

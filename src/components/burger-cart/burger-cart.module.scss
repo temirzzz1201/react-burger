@@ -1,0 +1,35 @@
+.cart {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 208px;
+  max-width: 272px;
+  width: 100%;
+  margin-bottom: 32px;
+
+  &:nth-last-child(2) {
+    margin-bottom: 0;
+  }
+  &:nth-last-child(1) {
+    margin-bottom: 0;
+  }
+
+  &__img {
+    margin-bottom: 4px;
+  }
+
+  &__price {
+    display: flex;
+    margin-bottom: 4px;
+
+    p {
+      padding-right: 8px;
+    }
+  }
+
+  &__description {
+    text-align: center;
+    height: 48px;
+  }
+}

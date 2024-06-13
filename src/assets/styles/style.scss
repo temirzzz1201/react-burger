@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "MonoRegular";
+  src: local("MonoRegular"),
+    url(../fonts/JetBrains-Mono/webfonts/JetBrainsMono-Regular.woff2)
+      format("woff");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "MonoRegular", sans-serif;
+}
+
+.App {
+  min-height: 100vh;
+  background: #131316;
+}
+
+.main {
+  padding: 0 40px;
+
+  &__content {
+    display: flex;
+    padding: 0 20px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
