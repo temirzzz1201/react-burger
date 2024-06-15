@@ -10,7 +10,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
-function IngridientCart({ product, imagesUrls }) {
+function IngridientCart({ product }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const productIdsWithCounter = [
