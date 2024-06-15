@@ -1,4 +1,4 @@
-import classes from "./header.module.scss";
+import classes from "./app-header.module.scss";
 import Navigation from "./navigation/navigation";
 import Profile from "./profile/profile";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";

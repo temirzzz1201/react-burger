@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import classes from "./drag-cart.module.scss";
+import classes from "./constructor-cart.module.scss";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function DragCart({ text, price, thumbnail, isLocked, type }) {
+function ConstructorCart({ text, price, thumbnail, isLocked, type }) {
   return (
     <div className={classes.cart}>
       {isLocked ? (
@@ -28,7 +28,7 @@ function DragCart({ text, price, thumbnail, isLocked, type }) {
   );
 }
 
-DragCart.propTypes = {
+ConstructorCart.propTypes = {
   text: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
@@ -36,4 +36,4 @@ DragCart.propTypes = {
   type: PropTypes.oneOf(["top", "bottom"]),
 };
 
-export default DragCart;
+export default ConstructorCart;

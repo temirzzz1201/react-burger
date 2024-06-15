@@ -1,0 +1,15 @@
+.modal {
+  border-radius: 40px;
+  background: #1C1C21;
+  &__navigation {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 640px;
+    height: 64px;
+
+    svg {
+      cursor: pointer;
+    }
+  }
+}

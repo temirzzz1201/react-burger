@@ -2,10 +2,10 @@ import PropTypes from "prop-types";
 import { productType } from "../../types/productTypes";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import classes from "./tab-menu.module.scss";
-import BurgerCart from "../burger-cart/burger-cart";
+import classes from "./burger-ingredients.module.scss";
+import IngridientCart from "../ingridient-cart/ingridient-cart.jsx";
 
-const TabMenu = ({ buns, sauces, main }) => {
+const BurgerIngredients = ({ buns, sauces, main }) => {
   const [current, setCurrent] = useState("buns");
   const sectionsRef = useRef({
     buns: null,
@@ -51,55 +51,52 @@ const TabMenu = ({ buns, sauces, main }) => {
   };
 
   return (
-    <div className={classes.tab}>
-      <div className={classes.tab__menu}>
+    <div className={classes.burger}>
+      <div className={classes.burger__menu}>
         <Tab
           value="buns"
           active={current === "buns"}
-          onClick={() => scrollToSection("buns")}
-        >
+          onClick={() => scrollToSection("buns")}>
           Булки
         </Tab>
         <Tab
           value="sauces"
           active={current === "sauces"}
-          onClick={() => scrollToSection("sauces")}
-        >
+          onClick={() => scrollToSection("sauces")}>
           Соусы
         </Tab>
         <Tab
           value="fillings"
           active={current === "fillings"}
-          onClick={() => scrollToSection("fillings")}
-        >
+          onClick={() => scrollToSection("fillings")}>
           Начинки
         </Tab>
       </div>
-      <div ref={containerRef} className={classes.tab__container}>
+      <div ref={containerRef} className={classes.burger__container}>
         <section ref={(el) => (sectionsRef.current.buns = el)}>
           <p className="text text_type_main-medium mb-6">Булки</p>
-          <div className={classes.tab__cart__wrapper}>
+          <div className={classes.burger__cart__wrapper}>
             {buns &&
               buns.map((bun) => {
-                return <BurgerCart key={bun?._id} product={bun} />;
+                return <IngridientCart key={bun?._id} product={bun} />;
               })}
           </div>
         </section>
         <section ref={(el) => (sectionsRef.current.sauces = el)}>
           <p className="text text_type_main-medium mb-6">Соусы</p>
-          <div className={classes.tab__cart__wrapper}>
+          <div className={classes.burger__cart__wrapper}>
             {sauces &&
               sauces.map((sauce) => {
-                return <BurgerCart key={sauce?._id} product={sauce} />;
+                return <IngridientCart key={sauce?._id} product={sauce} />;
               })}
           </div>
         </section>
         <section ref={(el) => (sectionsRef.current.fillings = el)}>
           <p className="text text_type_main-medium mb-6">Начинки</p>
-          <div className={classes.tab__cart__wrapper}>
+          <div className={classes.burger__cart__wrapper}>
             {main &&
               main.map((filling) => {
-                return <BurgerCart key={filling?._id} product={filling} />;
+                return <IngridientCart key={filling?._id} product={filling} />;
               })}
           </div>
         </section>
@@ -108,10 +105,10 @@ const TabMenu = ({ buns, sauces, main }) => {
   );
 };
 
-TabMenu.propTypes = {
+BurgerIngredients.propTypes = {
   buns: PropTypes.arrayOf(productType).isRequired,
   sauces: PropTypes.arrayOf(productType).isRequired,
   main: PropTypes.arrayOf(productType).isRequired,
 };
 
-export default TabMenu;
+export default BurgerIngredients;
