@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import { productType } from "../../types/productTypes";
 import classes from "./ingredient-details.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -58,14 +58,7 @@ function IngredientDetails({ product }) {
 }
 
 IngredientDetails.propTypes = {
-  product: PropTypes.shape({
-    name: PropTypes.string,
-    calories: PropTypes.number,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    image_large: PropTypes.string,
-  }).isRequired,
+  product: productType.isRequired,
 };
 
 export default IngredientDetails;

@@ -1,8 +1,8 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import { productType } from "../../types/productTypes";
 import classes from "./burger-constructor.module.scss";
 import ConstructorCart from "../constructor-cart/constructor-cart.jsx";
+import { useModal } from "../../castom-hooks/useModal";
 import dragcart5 from "../../assets/images/dragcart5.png";
 import {
   CurrencyIcon,
@@ -12,15 +12,7 @@ import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 
 function BurgerConstructor({ allProducts }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   return (
     <div className={classes.constructor}>
@@ -57,7 +49,7 @@ function BurgerConstructor({ allProducts }) {
           <CurrencyIcon type="primary" />
         </div>
         <Button
-          onClick={handleOpenModal}
+          onClick={openModal}
           htmlType="button"
           type="primary"
           size="large">
@@ -66,7 +58,7 @@ function BurgerConstructor({ allProducts }) {
       </div>
 
       {isModalOpen && (
-        <Modal onClose={handleCloseModal} classModal="modal__constructor">
+        <Modal onClose={closeModal} classModal="modal__constructor">
           <OrderDetails />
         </Modal>
       )}
