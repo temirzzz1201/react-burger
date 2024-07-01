@@ -3,7 +3,7 @@ import { productType } from "../../types/productTypes";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./burger-ingredients.module.scss";
-import IngridientCart from "../ingridient-cart/ingridient-cart.jsx";
+import IngridientCart from "../ingredient-cart/ingredient-cart.jsx";
 
 const BurgerIngredients = ({ buns, sauces, main }) => {
   const [current, setCurrent] = useState("buns");

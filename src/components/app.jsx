@@ -1,7 +1,7 @@
 import "../assets/styles/style.scss";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchIngredients } from "../services/actions";
 import AppHeader from "./app-header/app-header.jsx";
@@ -15,11 +15,23 @@ function App() {
     data: ingredients,
     isLoading,
     error,
-  } = useSelector((state) => state.ingridient);
+  } = useSelector((state) => state.ingredient);
 
   useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
+
+  const buns = useMemo(() => {
+    return ingredients.filter((v) => v.type === "bun");
+  }, [ingredients]);
+
+  const sauces = useMemo(() => {
+    return ingredients.filter((v) => v.type === "sauce");
+  }, [ingredients]);
+
+  const main = useMemo(() => {
+    return ingredients.filter((v) => v.type === "main");
+  }, [ingredients]);
 
   if (isLoading) {
     return (
@@ -32,10 +44,6 @@ function App() {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  const buns = ingredients.filter((v) => v.type === "bun");
-  const sauces = ingredients.filter((v) => v.type === "sauce");
-  const main = ingredients.filter((v) => v.type === "main");
 
   return (
     <DndProvider backend={HTML5Backend}>

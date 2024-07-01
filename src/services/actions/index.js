@@ -1,16 +1,7 @@
-import { createAction } from '@reduxjs/toolkit';
+import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { INGRIDIENTS_URL, ORDER_URL } from "../../utils/constants";
-import { uid } from 'uid';
-import axios from "axios";
-
-export const addIngredient = createAction('burgerConstructor/addIngredient', (ingredient) => ({
-  payload: { ...ingredient, uniqueId: uid() }
-}));
-
-export const removeIngredient = createAction('burgerConstructor/removeIngredient');
-export const moveIngredient = createAction('burgerConstructor/moveIngredient');
-export const updateIngredientCount = createAction('burgerConstructor/updateIngredientCount');
+import { resetOrderNumber } from '../orderDetails'; 
 
 export const fetchIngredients = createAsyncThunk(
   'ingridient/fetchIngredients',
@@ -26,8 +17,9 @@ export const fetchIngredients = createAsyncThunk(
 
 export const placeOrder = createAsyncThunk(
   "order/placeOrder",
-  async (ingredients, { rejectWithValue }) => {
+  async (ingredients, { rejectWithValue, dispatch }) => {
     try {
+      dispatch(resetOrderNumber());
       const response = await axios.post(ORDER_URL, {
         ingredients,
       });

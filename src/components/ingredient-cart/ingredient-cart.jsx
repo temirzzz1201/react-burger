@@ -1,23 +1,23 @@
-import { productType } from "../../types/productTypes";
+import { productType } from "../../types/productTypes.js";
 import { useDrag } from "react-dnd";
 import { useSelector, useDispatch } from "react-redux";
-import classes from "./ingridient-cart.module.scss";
+import classes from "./ingredient-cart.module.scss";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { openModal, closeModal } from "../../services/ingredientDetails";
+import { openModal, closeModal } from "../../services/ingredientDetails.js";
 import Modal from "../modal/modal.jsx";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
-function IngridientCart({ product }) {
+function IngredientCart({ product }) {
   const dispatch = useDispatch();
   const ingredientCounts = useSelector(
     (state) => state.burgerConstructor.ingredientCounts
   );
-  const modalProduct = useSelector((state) => state.ingridientsModal.data);
+  const modalProduct = useSelector((state) => state.ingredientsModal.data);
 
   const [, dragRef] = useDrag({
     type: "ingredient",
@@ -67,8 +67,8 @@ function IngridientCart({ product }) {
   );
 }
 
-IngridientCart.propTypes = {
+IngredientCart.propTypes = {
   product: productType.isRequired,
 };
 
-export default IngridientCart;
+export default IngredientCart;

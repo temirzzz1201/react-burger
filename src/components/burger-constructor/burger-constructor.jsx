@@ -3,13 +3,13 @@ import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./burger-constructor.module.scss";
 import ConstructorCart from "../constructor-cart/constructor-cart.jsx";
-import { useModal } from "../../castom-hooks/useModal";
+import { useModal } from "../../hooks/useModal";
+import { placeOrder } from "../../services/actions";
 import {
   addIngredient,
   removeIngredient,
   moveIngredient,
-  placeOrder,
-} from "../../services/actions";
+} from "../../services/burgerConstructor";
 import {
   CurrencyIcon,
   Button,
@@ -76,20 +76,21 @@ function BurgerConstructor() {
         />
       )}
       <div className={classes.constructor__scrollable}>
-        {ingredients.map((product, index) =>
-          product ? (
-            <ConstructorCart
-              key={product.uniqueId}
-              index={index}
-              text={product.name}
-              price={product.price}
-              thumbnail={product.image}
-              onRemove={() => dispatch(removeIngredient(product.uniqueId))}
-              moveCard={(dragIndex, hoverIndex) =>
-                dispatch(moveIngredient({ dragIndex, hoverIndex }))
-              }
-            />
-          ) : null
+        {ingredients.map(
+          (product, index) =>
+            product && (
+              <ConstructorCart
+                key={product.uniqueId}
+                index={index}
+                text={product.name}
+                price={product.price}
+                thumbnail={product.image}
+                onRemove={() => dispatch(removeIngredient(product.uniqueId))}
+                moveCard={(dragIndex, hoverIndex) =>
+                  dispatch(moveIngredient({ dragIndex, hoverIndex }))
+                }
+              />
+            )
         )}
       </div>
       {bun && (
@@ -118,13 +119,11 @@ function BurgerConstructor() {
 
       {isModalOpen && (
         <Modal onClose={closeModal} classModal="modal__constructor">
-          {localError ? (
+          {localError && (
             <p className="text text_type_main-medium">{localError}</p>
-          ) : error ? (
-            <p className="text text_type_main-medium">{error}</p>
-          ) : orderData ? (
-            <OrderDetails orderNumber={orderData.order.number} />
-          ) : null}
+          )}
+          {error && <p className="text text_type_main-medium">{error}</p>}
+          {orderData && <OrderDetails orderNumber={orderData.order.number} />}
         </Modal>
       )}
     </div>

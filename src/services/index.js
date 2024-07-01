@@ -6,9 +6,9 @@ import orderDetailsSlice from './orderDetails';
 
 const store = configureStore({
   reducer: {
-    ingridient: burgerIngredientsSlice,
+    ingredient: burgerIngredientsSlice,
     burgerConstructor: burgerConstructorSlice,
-    ingridientsModal: ingredientDetailsSlice,
+    ingredientsModal: ingredientDetailsSlice,
     order: orderDetailsSlice,
   },
 });

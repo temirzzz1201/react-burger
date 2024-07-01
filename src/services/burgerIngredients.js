@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const burgerIngredientsSlice = createSlice({
-  name: 'ingridient',
+  name: 'ingredient',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

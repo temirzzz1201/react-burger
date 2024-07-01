@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import classes from "./order-details.module.scss";
 import Done from "../../assets/images/done.svg";
 
@@ -16,5 +17,9 @@ function OrderDetails({ orderNumber }) {
     </div>
   );
 }
+
+OrderDetails.propTypes = {
+  orderNumber: PropTypes.number,
+};
 
 export default OrderDetails;

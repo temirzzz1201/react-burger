@@ -5,7 +5,7 @@ const initialState = {
 };
 
 const ingredientDetailsSlice = createSlice({
-  name: 'ingridientsModal',
+  name: 'ingredientsModal',
   initialState,
   reducers: {
     openModal: (state, action) => {
