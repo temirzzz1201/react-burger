@@ -1,10 +1,10 @@
 import classes from "./order-details.module.scss";
 import Done from "../../assets/images/done.svg";
 
-function OrderDetails() {
+function OrderDetails({ orderNumber }) {
   return (
     <div className={classes.detail}>
-      <p className="text text_type_digits-large mb-8 mt-2">034536</p>
+      <p className="text text_type_digits-large mb-8 mt-2">{orderNumber}</p>
       <p className="text text_type_main-default mb-15">идентификатор заказа</p>
       <div className="mb-15">
         <img src={Done} alt="done" />

@@ -1,9 +1,15 @@
-import PropTypes from "prop-types";
-import { productType } from "../../types/productTypes";
+import { useMemo, useState } from "react";
+import { useDrop } from "react-dnd";
+import { useDispatch, useSelector } from "react-redux";
 import classes from "./burger-constructor.module.scss";
 import ConstructorCart from "../constructor-cart/constructor-cart.jsx";
 import { useModal } from "../../castom-hooks/useModal";
-import dragcart5 from "../../assets/images/dragcart5.png";
+import {
+  addIngredient,
+  removeIngredient,
+  moveIngredient,
+  placeOrder,
+} from "../../services/actions";
 import {
   CurrencyIcon,
   Button,
@@ -11,63 +17,118 @@ import {
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 
-function BurgerConstructor({ allProducts }) {
+function BurgerConstructor() {
+  const dispatch = useDispatch();
+  const { ingredients, bun } = useSelector((state) => state.burgerConstructor);
+  const { isLoading, error, orderData } = useSelector((state) => state.order);
   const { isModalOpen, openModal, closeModal } = useModal();
+  const [localError, setLocalError] = useState(null);
+
+  const totalPrice = useMemo(() => {
+    return ingredients
+      .filter(Boolean)
+      .reduce((acc, item) => acc + item.price, bun ? bun.price * 2 : 0);
+  }, [ingredients, bun]);
+
+  const handleOrderClick = () => {
+    if (!bun) {
+      setLocalError(
+        !totalPrice
+          ? "Выбирите ингридиенты для заказа"
+          : "Невозможно оформить заказ без булки"
+      );
+      openModal();
+    } else {
+      setLocalError(null);
+      const ingredientIds = [
+        bun._id,
+        ...ingredients.map((item) => item._id),
+        bun._id,
+      ];
+      dispatch(placeOrder(ingredientIds));
+      openModal();
+    }
+  };
+
+  const [, dropRef] = useDrop({
+    accept: "ingredient",
+    drop: (item) => {
+      if (item.type === "bun") {
+        dispatch(addIngredient({ ...item, position: "top" }));
+      } else {
+        dispatch(addIngredient(item));
+      }
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  });
 
   return (
-    <div className={classes.constructor}>
-      <ConstructorCart
-        type="top"
-        isLocked={true}
-        text="Краторная булка N-200i (верх)"
-        price={20}
-        thumbnail={dragcart5}
-      />
+    <div className={classes.constructor} ref={dropRef}>
+      {bun && (
+        <ConstructorCart
+          type="top"
+          isLocked={true}
+          text={`${bun.name} (верх)`}
+          price={bun.price}
+          thumbnail={bun.image}
+        />
+      )}
       <div className={classes.constructor__scrollable}>
-        {allProducts &&
-          allProducts.map((product) => {
-            return (
-              <ConstructorCart
-                key={product?._id}
-                text={product?.name}
-                price={product?.price}
-                thumbnail={product?.image}
-              />
-            );
-          })}
+        {ingredients.map((product, index) =>
+          product ? (
+            <ConstructorCart
+              key={product.uniqueId}
+              index={index}
+              text={product.name}
+              price={product.price}
+              thumbnail={product.image}
+              onRemove={() => dispatch(removeIngredient(product.uniqueId))}
+              moveCard={(dragIndex, hoverIndex) =>
+                dispatch(moveIngredient({ dragIndex, hoverIndex }))
+              }
+            />
+          ) : null
+        )}
       </div>
-      <ConstructorCart
-        type="bottom"
-        isLocked={true}
-        text="Краторная булка N-200i (низ)"
-        price={20}
-        thumbnail={dragcart5}
-      />
+      {bun && (
+        <ConstructorCart
+          type="bottom"
+          isLocked={true}
+          text={`${bun.name} (низ)`}
+          price={bun.price}
+          thumbnail={bun.image}
+        />
+      )}
       <div className={classes.constructor__result}>
         <div className={classes.constructor__result__total}>
-          <p className="text text_type_digits-medium">610</p>
+          <p className="text text_type_digits-medium">{totalPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
         <Button
-          onClick={openModal}
+          onClick={handleOrderClick}
           htmlType="button"
           type="primary"
-          size="large">
-          Оформить заказ
+          size="large"
+          disabled={isLoading}>
+          {isLoading ? "Загрузка..." : "Оформить заказ"}
         </Button>
       </div>
 
       {isModalOpen && (
         <Modal onClose={closeModal} classModal="modal__constructor">
-          <OrderDetails />
+          {localError ? (
+            <p className="text text_type_main-medium">{localError}</p>
+          ) : error ? (
+            <p className="text text_type_main-medium">{error}</p>
+          ) : orderData ? (
+            <OrderDetails orderNumber={orderData.order.number} />
+          ) : null}
         </Modal>
       )}
     </div>
   );
 }
-
-BurgerConstructor.propTypes = {
-  allProducts: PropTypes.arrayOf(productType).isRequired,
-};
 
 export default BurgerConstructor;

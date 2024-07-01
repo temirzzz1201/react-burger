@@ -42,5 +42,12 @@
 
 .modal__constructor {
   padding: 40px 40px 120px 40px;
+}
 
+.spiner__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  z-index: 999;
 }

@@ -1,58 +1,59 @@
 import "../assets/styles/style.scss";
-import { url } from "../utils/constants";
-import { useEffect, useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchIngredients } from "../services/actions";
 import AppHeader from "./app-header/app-header.jsx";
 import BurgerIngredients from "./burger-ingredients/burger-ingredients.jsx";
 import BurgerConstructor from "./burger-constructor/burger-constructor.jsx";
-import axios from "axios";
+import { TailSpin } from "react-loader-spinner";
 
 function App() {
-  const [buns, setBuns] = useState([]);
-  const [sauces, setSauces] = useState([]);
-  const [main, setMain] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
+  const dispatch = useDispatch();
+  const {
+    data: ingredients,
+    isLoading,
+    error,
+  } = useSelector((state) => state.ingridient);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const request = await axios(url);
-        const response = request.data.success ? request.data.data : [];
+    dispatch(fetchIngredients());
+  }, [dispatch]);
 
-        const bunsArray = response?.filter((v) => v.type === "bun");
-        const sauceArray = response?.filter((v) => v.type === "sauce");
-        const mainArray = response?.filter((v) => v.type === "main");
+  if (isLoading) {
+    return (
+      <div className="spiner__wrapper">
+        <TailSpin color="#00BFFF" height={80} width={80} />
+      </div>
+    );
+  }
 
-        const filteredDragCardArray = response?.filter(
-          (v) => v._id !== "643d69a5c3f7b9001cfa093c"
-        );
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
-        setBuns(bunsArray);
-        setSauces(sauceArray);
-        setMain(mainArray);
-        setAllProducts(filteredDragCardArray);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const buns = ingredients.filter((v) => v.type === "bun");
+  const sauces = ingredients.filter((v) => v.type === "sauce");
+  const main = ingredients.filter((v) => v.type === "main");
 
   return (
-    <div className="app">
-      <AppHeader />
-      <main className="main">
-        <div className="container">
-          <p className="text text_type_main-large mt-10 mb-5 pl-5 pr-5">
-            Соберите бургер
-          </p>
-          <div className="main__content">
-            <BurgerIngredients buns={buns} sauces={sauces} main={main} />
-            <BurgerConstructor allProducts={allProducts} />
+    <DndProvider backend={HTML5Backend}>
+      <div className="app">
+        <AppHeader />
+        <main className="main">
+          <div className="container">
+            <p className="text text_type_main-large mt-10 mb-5 pl-5 pr-5">
+              Соберите бургер
+            </p>
+            <div className="main__content">
+              <BurgerIngredients buns={buns} sauces={sauces} main={main} />
+              <BurgerConstructor />
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </DndProvider>
   );
 }
 
