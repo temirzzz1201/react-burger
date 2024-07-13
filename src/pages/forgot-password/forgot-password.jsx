@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import classes from "./forgot-password.module.scss";
-import { useState } from "react";
 import {
   Input,
   Button,
@@ -10,14 +9,15 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword } from "../../services/actions";
 import { TailSpin } from "react-loader-spinner";
+import { useForm } from "../../hooks/useForm";
 
 function ForgotPassword({ onResetPasswordClick }) {
-  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
+  const { values, handleChange } = useForm({ email: "" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resultAction = await dispatch(resetPassword(email));
+    const resultAction = await dispatch(resetPassword(values.email));
     if (resetPassword.fulfilled.match(resultAction)) {
       onResetPasswordClick();
     }
@@ -52,9 +52,10 @@ function ForgotPassword({ onResetPasswordClick }) {
           <form className={classes.forgot__form} onSubmit={handleSubmit}>
             <Input
               type={"email"}
+              name="email"
               placeholder={"Укажите e-mail"}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={values.email}
+              onChange={handleChange}
               extraClass="mb-6"
             />
             <Button htmlType="submit" type="primary" size="medium">

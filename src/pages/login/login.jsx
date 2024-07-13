@@ -1,5 +1,4 @@
 import classes from "./login.module.scss";
-import { useState } from "react";
 import {
   Input,
   PasswordInput,
@@ -9,18 +8,20 @@ import Header from "../../components/app-header/app-header";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions";
+import { useForm } from "../../hooks/useForm";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { values, handleChange } = useForm({ email: "", password: "" });
   const { isLoading, error } = useSelector((state) => state.auth);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const result = await dispatch(login({ email, password }));
+      const result = await dispatch(
+        login({ email: values.email, password: values.password })
+      );
       if (result.meta.requestStatus === "fulfilled") {
         navigate("/");
       }
@@ -38,15 +39,17 @@ function Login() {
           <form className={classes.login__form} onSubmit={handleLogin}>
             <Input
               type="email"
+              name="email"
               placeholder="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={values.email}
+              onChange={handleChange}
               extraClass="mb-6"
             />
             <PasswordInput
+              name="password"
               placeholder="Пароль"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={values.password}
+              onChange={handleChange}
               extraClass="mb-6"
             />
             <Button

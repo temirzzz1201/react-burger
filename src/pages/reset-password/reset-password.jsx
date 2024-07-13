@@ -1,5 +1,5 @@
 import classes from "./reset-password.module.scss";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Input,
   PasswordInput,
@@ -9,10 +9,13 @@ import Header from "../../components/app-header/app-header";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setNewPassword } from "../../services/actions";
+import { useForm } from "../../hooks/useForm";
 
 function ResetPassword() {
-  const [code, setCode] = useState("");
-  const [password, setPassword] = useState("");
+  const { values, handleChange } = useForm({
+    code: "",
+    password: "",
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fromForgotPassword = useSelector(
@@ -28,7 +31,7 @@ function ResetPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const resultAction = await dispatch(
-      setNewPassword({ password, token: code })
+      setNewPassword({ password: values.password, token: values.code })
     );
     if (setNewPassword.fulfilled.match(resultAction)) {
       navigate("/login");
@@ -46,16 +49,18 @@ function ResetPassword() {
           </p>
           <form className={classes.reset__form} onSubmit={handleSubmit}>
             <PasswordInput
+              name="password"
               placeholder={"Введите новый пароль"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={values.password}
+              onChange={handleChange}
               extraClass="mb-6"
             />
             <Input
+              name="code"
               type={"text"}
               placeholder={"Введите код из письма"}
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
+              value={values.code}
+              onChange={handleChange}
               extraClass="mb-6"
             />
             <Button htmlType="submit" type="primary" size="medium">

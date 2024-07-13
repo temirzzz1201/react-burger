@@ -1,5 +1,4 @@
 import classes from "./register.module.scss";
-import { useState } from "react";
 import {
   Input,
   PasswordInput,
@@ -9,20 +8,28 @@ import Header from "../../components/app-header/app-header";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../services/actions";
+import { useForm } from "../../hooks/useForm";
 
 function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { values, handleChange } = useForm({
+    name: "",
+    email: "",
+    password: "",
+  });
   const { loading, error } = useSelector((state) => state.auth);
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
     try {
-      const result = await dispatch(register({ name, email, password }));
+      const result = await dispatch(
+        register({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        })
+      );
       if (result.meta.requestStatus === "fulfilled") {
         navigate("/login");
       }
@@ -40,22 +47,25 @@ function Register() {
           <form className={classes.register__form} onSubmit={handleRegister}>
             <Input
               type="text"
+              name="name"
               placeholder="Имя"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={values.name}
+              onChange={handleChange}
               extraClass="mb-6"
             />
             <Input
               type="email"
+              name="email"
               placeholder="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={values.email}
+              onChange={handleChange}
               extraClass="mb-6"
             />
             <PasswordInput
+              name="password"
               placeholder="Пароль"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={values.password}
+              onChange={handleChange}
               extraClass="mb-6"
             />
             <Button

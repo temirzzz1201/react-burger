@@ -1,5 +1,5 @@
-import classes from "./profile.module.scss";
 import { useState, useEffect } from "react";
+import classes from "./profile.module.scss";
 import {
   Input,
   PasswordInput,
@@ -11,37 +11,43 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../services/actions";
 import { TailSpin } from "react-loader-spinner";
 import ProfileNavigation from "../../components/profile-navigation/profile-navigation";
+import { useForm } from "../../hooks/useForm";
 
 function Profile() {
   const { user, isLoading, error } = useSelector((state) => state.auth);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { values, handleChange, setValues } = useForm({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     if (user) {
-      setName(user.name);
-      setEmail(user.email);
+      setValues({ name: user.name, email: user.email, password: "" });
     } else {
       navigate("/login");
     }
-  }, [user, navigate]);
+  }, [user, navigate, setValues]);
 
   const handleSave = async (e) => {
     e.preventDefault();
-    dispatch(updateUser({ name, email, password }));
+    dispatch(
+      updateUser({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      })
+    );
     setIsEditing(false);
   };
 
   const handleCancel = () => {
     if (user) {
-      setName(user.name);
-      setEmail(user.email);
+      setValues({ name: user.name, email: user.email, password: "" });
     }
-    setPassword("");
     setIsEditing(false);
   };
 
@@ -66,28 +72,31 @@ function Profile() {
           <form onSubmit={handleSave}>
             <Input
               type={"text"}
+              name="name"
               placeholder={"Имя"}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={values.name}
+              onChange={handleChange}
               icon={"EditIcon"}
               extraClass="mb-6"
             />
             <Input
               type={"email"}
+              name="email"
               placeholder={"Логин"}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={values.email}
+              onChange={handleChange}
               icon={"EditIcon"}
               extraClass="mb-6"
             />
             <PasswordInput
+              name="password"
               placeholder={"Пароль"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={values.password}
+              onChange={handleChange}
               icon="EditIcon"
             />
             <div className={classes.profile__buttons}>
-              {isEditing && (
+              {isEditing ? (
                 <div>
                   <Button
                     htmlType="button"
@@ -100,8 +109,7 @@ function Profile() {
                     Сохранить
                   </Button>
                 </div>
-              )}
-              {!isEditing && (
+              ) : (
                 <Button
                   htmlType="button"
                   type="primary"

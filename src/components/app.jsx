@@ -16,7 +16,7 @@ import Profile from "../pages/profile/profile";
 import Register from "../pages/register/register";
 import ResetPassword from "../pages/reset-password/reset-password";
 import OrderFeed from "../pages/order-feed/order-feed";
-import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from "./protected-route/protected-route";
 import Home from "../pages/home/home";
 import OrdersHistory from "../pages/orders-history/orders-history";
 import { fetchUserDetails } from "../services/actions";
