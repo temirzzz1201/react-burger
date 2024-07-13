@@ -4,6 +4,10 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 function IngredientDetails({ product }) {
+  if (!product) {
+    return <p className="text text_type_main-medium">Продукт не найден</p>;
+  }
+
   return (
     <div className={classes.detail}>
       <div className={classes.detail__img__wrapper}>

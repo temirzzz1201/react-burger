@@ -1,14 +1,34 @@
 import classes from "./profile.module.scss";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Audio } from "react-loader-spinner";
 
 function Profile() {
+  const { user, isLoading } = useSelector((state) => state.auth);
+
+  const userName = isLoading ? (
+    <Audio color="#8585AD" height={20} width={80} />
+  ) : user && user.name ? (
+    user.name
+  ) : (
+    "Личный кабинет"
+  );
+
   return (
-    <button className={classes.profile__signin}>
-      <ProfileIcon type="secondary" />
-      <p className="text text_type_main-default text_color_inactive pl-2">
-        Личный кабинет
-      </p>
-    </button>
+    <NavLink to="/profile" className={classes.profile__signin}>
+      {({ isActive }) => (
+        <>
+          <ProfileIcon type={isActive ? "primary" : "secondary"} />
+          <div
+            className={`text text_type_main-default pl-2 ${
+              isActive ? "" : "text_color_inactive"
+            }`}>
+            {userName}
+          </div>
+        </>
+      )}
+    </NavLink>
   );
 }
 

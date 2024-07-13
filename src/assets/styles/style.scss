@@ -3,6 +3,7 @@
   src: local("MonoRegular"),
     url(../fonts/JetBrains-Mono/webfonts/JetBrainsMono-Regular.woff2)
       format("woff");
+      font-display: swap;
 }
 
 * {
@@ -50,4 +51,10 @@
   align-items: center;
   height: 100vh;
   z-index: 999;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }

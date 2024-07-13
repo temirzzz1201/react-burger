@@ -1,0 +1,14 @@
+.navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 320px;
+    margin-right: 60px;
+
+    p {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+  }

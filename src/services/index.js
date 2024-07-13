@@ -3,6 +3,8 @@ import burgerIngredientsSlice from "./burgerIngredients";
 import burgerConstructorSlice from './burgerConstructor';
 import ingredientDetailsSlice from './ingredientDetails';
 import orderDetailsSlice from './orderDetails';
+import authSlice from "./auth";
+import passwordRecoverySlice from "./passwordRecovery";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ const store = configureStore({
     burgerConstructor: burgerConstructorSlice,
     ingredientsModal: ingredientDetailsSlice,
     order: orderDetailsSlice,
+    auth: authSlice,
+    passwordRecovery: passwordRecoverySlice,
   },
 });
 

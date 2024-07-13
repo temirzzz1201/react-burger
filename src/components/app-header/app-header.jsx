@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import classes from "./app-header.module.scss";
 import Navigation from "./navigation/navigation";
 import Profile from "./profile/profile";
@@ -8,7 +9,9 @@ function Header() {
     <header className={classes.header}>
       <div className={classes.header__container}>
         <Navigation />
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
         <Profile />
       </div>
     </header>
