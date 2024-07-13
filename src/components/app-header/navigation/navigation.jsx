@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import classes from "./navigation.module.scss";
 import {
   BurgerIcon,
@@ -11,28 +12,43 @@ function Navigation() {
         className={[
           classes.nav__navigation,
           classes.nav__navigation_indent,
-        ].join(" ")}
-      >
-        <button
+        ].join(" ")}>
+        <NavLink
+          to="/"
           className={[
             classes.nav__navigation__block,
             classes.nav__navigation__block_indent,
-          ].join(" ")}
-        >
-          <BurgerIcon type="primary" />
-          <p className="text text_type_main-default pl-2">Конструктор</p>
-        </button>
-        <button
+          ].join(" ")}>
+          {({ isActive }) => (
+            <>
+              <BurgerIcon type={isActive ? "primary" : "secondary"} />
+              <p
+                className={`text text_type_main-default pl-2 ${
+                  isActive ? "" : "text_color_inactive"
+                }`}>
+                Конструктор
+              </p>
+            </>
+          )}
+        </NavLink>
+        <NavLink
+          to="/order-feed"
           className={[
             classes.nav__navigation__block,
-            classes.nav__navigation__block_active,
-          ].join(" ")}
-        >
-          <ListIcon type="secondary" />
-          <p className="text text_type_main-default text_color_inactive pl-2">
-            Лента заказов
-          </p>
-        </button>
+            classes.nav__navigation__block_indent,
+          ].join(" ")}>
+          {({ isActive }) => (
+            <>
+              <ListIcon type={isActive ? "primary" : "secondary"} />
+              <p
+                className={`text text_type_main-default pl-2 ${
+                  isActive ? "" : "text_color_inactive"
+                }`}>
+                Лента заказов
+              </p>
+            </>
+          )}
+        </NavLink>
       </div>
     </nav>
   );

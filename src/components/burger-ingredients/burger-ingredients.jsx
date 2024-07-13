@@ -4,6 +4,8 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./burger-ingredients.module.scss";
 import IngridientCart from "../ingredient-cart/ingredient-cart.jsx";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const BurgerIngredients = ({ buns, sauces, main }) => {
   const [current, setCurrent] = useState("buns");
@@ -13,6 +15,8 @@ const BurgerIngredients = ({ buns, sauces, main }) => {
     fillings: null,
   });
   const containerRef = useRef(null);
+
+  const location = useLocation();
 
   const handleScroll = useCallback(() => {
     const { buns, sauces, fillings } = sectionsRef.current;
@@ -78,7 +82,14 @@ const BurgerIngredients = ({ buns, sauces, main }) => {
           <div className={classes.burger__cart__wrapper}>
             {buns &&
               buns.map((bun) => {
-                return <IngridientCart key={bun?._id} product={bun} />;
+                return (
+                  <Link
+                    key={bun?._id}
+                    to={`/ingredients/${bun?._id}`}
+                    state={{ backgroundLocation: location }}>
+                    <IngridientCart product={bun} />
+                  </Link>
+                );
               })}
           </div>
         </section>
@@ -87,7 +98,14 @@ const BurgerIngredients = ({ buns, sauces, main }) => {
           <div className={classes.burger__cart__wrapper}>
             {sauces &&
               sauces.map((sauce) => {
-                return <IngridientCart key={sauce?._id} product={sauce} />;
+                return (
+                  <Link
+                    key={sauce?._id}
+                    to={`/ingredients/${sauce?._id}`}
+                    state={{ backgroundLocation: location }}>
+                    <IngridientCart product={sauce} />
+                  </Link>
+                );
               })}
           </div>
         </section>
@@ -96,7 +114,14 @@ const BurgerIngredients = ({ buns, sauces, main }) => {
           <div className={classes.burger__cart__wrapper}>
             {main &&
               main.map((filling) => {
-                return <IngridientCart key={filling?._id} product={filling} />;
+                return (
+                  <Link
+                    key={filling?._id}
+                    to={`/ingredients/${filling?._id}`}
+                    state={{ backgroundLocation: location }}>
+                    <IngridientCart product={filling} />
+                  </Link>
+                );
               })}
           </div>
         </section>

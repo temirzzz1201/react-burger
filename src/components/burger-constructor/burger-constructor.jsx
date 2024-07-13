@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import classes from "./burger-constructor.module.scss";
 import ConstructorCart from "../constructor-cart/constructor-cart.jsx";
 import { useModal } from "../../hooks/useModal";
@@ -19,10 +20,12 @@ import Modal from "../modal/modal";
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { ingredients, bun } = useSelector((state) => state.burgerConstructor);
   const { isLoading, error, orderData } = useSelector((state) => state.order);
   const { isModalOpen, openModal, closeModal } = useModal();
   const [localError, setLocalError] = useState(null);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const totalPrice = useMemo(() => {
     return ingredients
@@ -31,10 +34,15 @@ function BurgerConstructor() {
   }, [ingredients, bun]);
 
   const handleOrderClick = () => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+
     if (!bun) {
       setLocalError(
         !totalPrice
-          ? "Выбирите ингридиенты для заказа"
+          ? "Выбирите ингредиенты для заказа"
           : "Невозможно оформить заказ без булки"
       );
       openModal();

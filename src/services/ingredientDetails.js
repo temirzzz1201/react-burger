@@ -1,18 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  data: null,
+  isOpen: false,
 };
 
 const ingredientDetailsSlice = createSlice({
-  name: 'ingredientsModal',
+  name: 'ingredientDetails',
   initialState,
   reducers: {
-    openModal: (state, action) => {
-      state.data = action.payload;
+    openModal: (state) => {
+      state.isOpen = true;
     },
     closeModal: (state) => {
-      state.data = null;
+      state.isOpen = false;
     },
   },
 });
