@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchIngredients } from "./actions";
 import { IBurgerIngredients } from "../types";
 
-
-
 const initialState: IBurgerIngredients = {
   data: [],
   isLoading: false,

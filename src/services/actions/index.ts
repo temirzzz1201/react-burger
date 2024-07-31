@@ -11,7 +11,7 @@ import {
   resetPasswordRequest,
   setNewPasswordRequest,
 } from '../../utils/api';
-import { IUser, ISetNewPasswordData, IPlaceOrderPayload } from "../../types";
+import { IUser, ISetNewPasswordData, IPlaceOrderPayload, IOrderData } from "../../types";
 
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
@@ -33,19 +33,19 @@ export const fetchIngredients = createAsyncThunk(
   }
 );
 
-export const placeOrder = createAsyncThunk<void, IPlaceOrderPayload>(
+export const placeOrder = createAsyncThunk<IOrderData, IPlaceOrderPayload, { rejectValue: string }>(
   "order/placeOrder",
   async (ingredients, { rejectWithValue, dispatch }) => {
     try {
       dispatch(resetOrderNumber());
-      const response = await axios.post(`${BASE_URL}/orders`, ingredients );
-      
-      return response.data.success ? response.data : {};
+      const response = await axios.post(`${BASE_URL}/orders`, ingredients);
+      return response.data.success ? response.data : rejectWithValue("Order placement failed");
     } catch (error) {
       return rejectWithValue(getErrorMessage(error));
     }
   }
 );
+
 
 export const register = createAsyncThunk('auth/register', async (userData: IUser, { rejectWithValue }) => {
   try {
@@ -59,7 +59,7 @@ export const register = createAsyncThunk('auth/register', async (userData: IUser
 export const login = createAsyncThunk('auth/login', async (userData: IUser, { rejectWithValue }) => {
   try {
     return await loginUser(userData);
-  } catch (error: any) {
+  } catch (error) {
     return rejectWithValue(getErrorMessage(error));
   }
 });

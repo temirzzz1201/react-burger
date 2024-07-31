@@ -113,3 +113,30 @@ export interface IProtectedRoute {
   onlyUnAuth?: boolean;
   component: React.ReactElement;
 }
+
+interface IOrder {
+  number: number;
+}
+
+export interface IOrderData {
+  success: boolean;
+  name: string;
+  order: IOrder;
+}
+
+export interface PasswordRecoveryState {
+  fromForgotPassword: boolean;
+  redirectPath: string | null;
+}
+
+export interface IBurgerConstructorState {
+  bun: IIngredient | null;
+  ingredients: IIngredient[];
+  ingredientCounts: { [key: string]: number };
+}
+
+export interface IOrderState {
+  isLoading: boolean;
+  error: string | null;
+  orderData: IOrderData | null;
+}

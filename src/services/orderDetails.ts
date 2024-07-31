@@ -1,11 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { placeOrder } from "./actions";
-
-export interface IOrderState {
-  isLoading: boolean;
-  error: any
-  orderData: any;
-}
+import { IOrderData, IOrderState } from "../types";
 
 const initialState: IOrderState = {
   isLoading: false,
@@ -13,13 +8,12 @@ const initialState: IOrderState = {
   orderData: null,
 };
 
-
 const orderDetailsSlice = createSlice({
   name: "order",
   initialState,
   reducers: {
     resetOrderNumber(state) {
-      state.orderData = null; 
+      state.orderData = null;
     },
   },
   extraReducers: (builder) => {
@@ -28,13 +22,13 @@ const orderDetailsSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(placeOrder.fulfilled, (state, action) => {
+      .addCase(placeOrder.fulfilled, (state, action: PayloadAction<IOrderData>) => {
         state.isLoading = false;
         state.orderData = action.payload;
       })
-      .addCase(placeOrder.rejected, (state, action) => {
+      .addCase(placeOrder.rejected, (state, action: PayloadAction<string | undefined>) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload || "Unknown error";
       });
   },
 });
