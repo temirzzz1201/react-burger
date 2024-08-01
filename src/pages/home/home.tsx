@@ -7,7 +7,6 @@ import AppHeader from "../../components/app-header/app-header";
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import { TailSpin } from "react-loader-spinner";
-import { IIngredient } from "../../types";
 
 const Home: React.FC = () => {
   const {
@@ -17,16 +16,16 @@ const Home: React.FC = () => {
   } = useAppSelector((state) => state.ingredient);
 
   const buns = useMemo(
-    () => ingredients.filter((v: IIngredient) => v.type === "bun"),
+    () => ingredients.filter((v) => v.type === "bun"),
     [ingredients]
   );
 
   const sauces = useMemo(
-    () => ingredients.filter((v: IIngredient) => v.type === "sauce"),
+    () => ingredients.filter((v) => v.type === "sauce"),
     [ingredients]
   );
   const main = useMemo(
-    () => ingredients.filter((v: IIngredient) => v.type === "main"),
+    () => ingredients.filter((v) => v.type === "main"),
     [ingredients]
   );
 

@@ -35,7 +35,7 @@ const App = () => {
   let state = location.state;
 
   const match: PathMatch<"id"> | null = useMatch("/ingredients/:id");
-  const id: string | undefined = match ? match.params.id : undefined;
+  const id = match?.params.id;
 
   useEffect(() => {
     if (Cookies.get("accessToken")) {

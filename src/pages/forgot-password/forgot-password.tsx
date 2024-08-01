@@ -11,28 +11,34 @@ import { resetPassword } from "../../services/actions";
 import { TailSpin } from "react-loader-spinner";
 import { useForm } from "../../hooks/useForm";
 import { IForgotPasswordProps, IUser } from "../../types";
+import { useState } from "react";
 
 const ForgotPassword: React.FC<IForgotPasswordProps> = ({
   onResetPasswordClick,
 }) => {
   const dispatch = useAppDispatch();
   const { values, handleChange } = useForm<IUser>({ email: "" });
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!values.email) {
-      console.error("Email обязательное поле");
+      setError("Email обязательное поле");
       return;
     }
 
-    const resultAction = await dispatch(resetPassword(values.email));
-    if (resetPassword.fulfilled.match(resultAction)) {
-      onResetPasswordClick();
+    try {
+      const resultAction = await dispatch(resetPassword(values.email));
+      if (resetPassword.fulfilled.match(resultAction)) {
+        onResetPasswordClick();
+      }
+    } catch (err) {
+      setError("Произошла ошибка. Пожалуйста, попробуйте снова.");
     }
   };
 
-  const { isLoading } = useAppSelector((state) => state.auth);
+  const isLoading = useAppSelector((state) => state.auth.isLoading);
 
   if (isLoading) {
     return (
@@ -63,6 +69,7 @@ const ForgotPassword: React.FC<IForgotPasswordProps> = ({
               Восстановить
             </Button>
           </form>
+          {error && <p className={classes.forgot__error}>{error}</p>}
           <p className="text text_type_main-default text_color_inactive">
             Вспомнили пароль?
             <Link className={classes.forgot__link} to="/login">
