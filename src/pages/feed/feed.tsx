@@ -47,7 +47,7 @@ const Feed: React.FC = () => {
   );
 
   const inWorkOrders = splitIntoChunks(
-    feedOrders.orders.filter((order) => order.status === "inwork"),
+    feedOrders.orders.filter((order) => order.status === "pending"),
     10
   );
 
