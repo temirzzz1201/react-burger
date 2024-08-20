@@ -21,7 +21,7 @@ import {
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import { IIngredient } from "../../types";
-import DummyBun from "../../dummy-bun/dummy-bun";
+import DummyBun from "../dummy-bun/dummy-bun";
 
 interface IBurgerConstructorState {
   ingredients: IIngredient[];
