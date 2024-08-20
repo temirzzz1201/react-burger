@@ -55,6 +55,11 @@ const burgerConstructorSlice = createSlice({
       const { _id, count } = action.payload;
       state.ingredientCounts[_id] = count;
     },
+    clearIngredients(state) {
+      state.bun = null;
+      state.ingredients = [];
+      state.ingredientCounts = {};
+    },
   },
 });
 
@@ -63,6 +68,7 @@ export const {
   removeIngredient,
   moveIngredient,
   updateIngredientCount,
+  clearIngredients,
 } = burgerConstructorSlice.actions;
 
 export default burgerConstructorSlice.reducer;

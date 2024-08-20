@@ -74,8 +74,10 @@ const Login: React.FC = () => {
           </form>
           {error && (
             <p className={classes.login__error}>
-              {error.message ||
-                "Ошибка входа. Проверьте ваши данные и попробуйте снова."}
+              {typeof error === "string"
+                ? error
+                : error.message ||
+                  "Ошибка входа. Проверьте ваши данные и попробуйте снова."}
             </p>
           )}
           <p className="text text_type_main-default text_color_inactive">

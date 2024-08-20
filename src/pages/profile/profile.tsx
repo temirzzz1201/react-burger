@@ -62,7 +62,11 @@ const Profile: React.FC = () => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <p className="text text_type_main-default text_color_error">
+        Error: {typeof error === "string" ? error : error.message}
+      </p>
+    );
   }
 
   return (

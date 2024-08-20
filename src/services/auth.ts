@@ -1,7 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { register,login, logout, resetPassword, setNewPassword, fetchUserDetails, updateUser } from './actions'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { register, login, logout, resetPassword, setNewPassword, fetchUserDetails, updateUser } from './actions';
 import { IAuthState } from '../types';
-
 
 const initialState: IAuthState = {
   user: null,
@@ -25,9 +24,9 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
         state.error = null;
       })
-      .addCase(register.rejected, (state, action) => {
+      .addCase(register.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload as string || 'Ошибка регистрации';
       })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
@@ -38,9 +37,9 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
         state.error = null;
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(login.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload as string || 'Ошибка входа';
       })
       .addCase(logout.pending, (state) => {
         state.isLoading = true;
@@ -51,9 +50,9 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.error = null;
       })
-      .addCase(logout.rejected, (state, action) => {
+      .addCase(logout.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload as string || 'Ошибка выхода';
       })
       .addCase(resetPassword.pending, (state) => {
         state.isLoading = true;
@@ -62,9 +61,9 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = null;
       })
-      .addCase(resetPassword.rejected, (state, action) => {
+      .addCase(resetPassword.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload as string || 'Ошибка сброса пароля';
       })
       .addCase(setNewPassword.pending, (state) => {
         state.isLoading = true;
@@ -73,9 +72,9 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = null;
       })
-      .addCase(setNewPassword.rejected, (state, action) => {
+      .addCase(setNewPassword.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload as string || 'Ошибка установки нового пароля';
       })
       .addCase(fetchUserDetails.pending, (state) => {
         state.isLoading = true;
@@ -86,9 +85,9 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
         state.error = null;
       })
-      .addCase(fetchUserDetails.rejected, (state, action) => {
+      .addCase(fetchUserDetails.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload as string || 'Ошибка загрузки данных пользователя';
       })
       .addCase(updateUser.pending, (state) => {
         state.isLoading = true;
@@ -98,9 +97,9 @@ const authSlice = createSlice({
         state.user = action.payload;
         state.error = null;
       })
-      .addCase(updateUser.rejected, (state, action) => {
+      .addCase(updateUser.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload as string || 'Ошибка обновления пользователя';
       });
   },
 });

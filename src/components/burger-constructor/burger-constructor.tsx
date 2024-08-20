@@ -7,6 +7,8 @@ import classes from "./burger-constructor.module.scss";
 import ConstructorCart from "../constructor-cart/constructor-cart";
 import { useModal } from "../../hooks/useModal";
 import { placeOrder } from "../../services/actions";
+import { TailSpin } from "react-loader-spinner";
+import { clearIngredients } from "../../services/burgerConstructor";
 import {
   addIngredient,
   removeIngredient,
@@ -39,6 +41,8 @@ const BurgerConstructor: React.FC = () => {
   const [localError, setLocalError] = useState<string | null>(null);
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
+  const { user } = useAppSelector((state) => state.auth);
+
   const totalPrice = useMemo(() => {
     return ingredients
       .filter(Boolean)
@@ -68,6 +72,8 @@ const BurgerConstructor: React.FC = () => {
 
       dispatch(placeOrder({ ingredients: ingredientIds }));
       openModal();
+
+      dispatch(clearIngredients());
     }
   };
 
@@ -153,6 +159,20 @@ const BurgerConstructor: React.FC = () => {
           {localError && (
             <p className="text text_type_main-medium">{localError}</p>
           )}
+
+          {isLoading && (
+            <div className={classes.construct__user}>
+              <p className="text text_type_main-medium mt-5 mb-8">
+                {`Размещаем заказ пользователя ${user?.name?.toUpperCase()}`}
+                <br />
+                {`пожалуйста подождите...`}
+              </p>
+              <div className="spiner__wrapper spiner__wrapper_modal">
+                <TailSpin color="#00BFFF" height={80} width={80} />
+              </div>
+            </div>
+          )}
+
           {error && <p className="text text_type_main-medium">{error}</p>}
           {orderData && <OrderDetails orderNumber={orderData.order.number} />}
         </Modal>

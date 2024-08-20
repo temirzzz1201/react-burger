@@ -52,7 +52,7 @@ const Home: React.FC = () => {
           <AppHeader />
           <main className="main">
             <div className="container">
-              <p className="text text_type_main-large mt-10 mb-5 pl-5 pr-5">
+              <p className="text text_type_main-large mt-10 mb-5">
                 Соберите бургер
               </p>
               <div className="main__content">

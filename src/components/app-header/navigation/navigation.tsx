@@ -32,7 +32,7 @@ function Navigation() {
           )}
         </NavLink>
         <NavLink
-          to="/order-feed"
+          to="/feed"
           className={[
             classes.nav__navigation__block,
             classes.nav__navigation__block_indent,

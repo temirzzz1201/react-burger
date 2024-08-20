@@ -1,0 +1,56 @@
+.feed {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+
+  &__wrapper {
+    display: flex;
+  }
+
+  &__carts {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 870px;
+    padding-right: 8px;
+  }
+
+  &__stats {
+    display: flex;
+    flex-direction: column;
+    width: 580px;
+    margin-left: 60px;
+  }
+
+  &__stats__stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 60px;
+  }
+
+  &__stats__done,
+  &__stats__inwork {
+    display: flex;
+    flex-direction: column;
+    width: 206px;
+  }
+
+  &__stats__items_green {
+    color: #00CCCC;
+  }
+
+  &__stats__total {
+    margin-bottom: 60px;
+  }
+
+  &__stats__total:last-child {
+    margin-bottom: 0;
+  }
+
+  &__stats__scrollable {
+    max-height: 335px;
+    overflow-y: auto;
+    padding-right: 5px; 
+  }
+}

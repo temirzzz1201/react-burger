@@ -25,8 +25,7 @@ const ProfileNavigation: React.FC<IProfileNavigation> = ({ isProfilePage }) => {
           </p>
         )}
       </NavLink>
-
-      <NavLink to="/profile/orders-history">
+      <NavLink to="/profile/orders">
         {({ isActive }) => (
           <p
             className={`text text_type_main-medium ${
@@ -36,7 +35,6 @@ const ProfileNavigation: React.FC<IProfileNavigation> = ({ isProfilePage }) => {
           </p>
         )}
       </NavLink>
-
       <p
         className="text text_type_main-medium text_color_inactive mb-20"
         onClick={handleLogout}>

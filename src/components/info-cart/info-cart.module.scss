@@ -1,0 +1,40 @@
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 608px;
+  width: 100%;
+
+  &__box {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(#131316, #131316) padding-box, 
+                linear-gradient(45deg, #801AB2, #4C4CFF) border-box;
+    border: 2px solid transparent; 
+    z-index: 999;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: auto;
+      margin-top: 14px;
+    }
+  }
+
+  &__title {
+    width: 320px;
+  }
+
+  &__box_indent {
+    margin-right: 16px;
+  }
+
+  &__count {
+    display: flex;
+    align-items: center;
+    p {
+      margin-right: 5px;
+    }
+  }
+}

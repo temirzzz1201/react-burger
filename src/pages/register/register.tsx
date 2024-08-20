@@ -80,8 +80,11 @@ const Register: React.FC = () => {
             </Button>
           </form>
           {error && (
-            <p className="text text_type_main-default text_color_error">
-              {error}
+            <p className={classes.login__error}>
+              {typeof error === "string"
+                ? error
+                : error.message ||
+                  "Ошибка регистрации. Проверьте ваши данные и попробуйте снова."}
             </p>
           )}
           <p className="text text_type_main-default text_color_inactive">
