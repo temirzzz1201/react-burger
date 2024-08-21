@@ -13,7 +13,7 @@ export interface IAuthState {
   user: IUser | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  error: any;
+  error: string | null | Error;
 }
 
 export interface IForgotPasswordProps {
@@ -36,6 +36,7 @@ export interface IIngredient {
   image_large?: string;
   __v?: number;
   position?: string;  
+  number?: number
 }
 
 export interface IBurgerIngredientsProps {
@@ -91,8 +92,13 @@ export interface IDragItem {
 }
 
 export interface IIngredientProps {
-  product: IIngredient;
+  product?: IIngredient;
 }
+
+export interface IOrdersProps {
+  order?: IIngredient;
+}
+
 
 export interface IModalProps {
   title?: string;
@@ -102,7 +108,7 @@ export interface IModalProps {
 }
 
 export interface IOrderDetailsProps {
-  orderNumber: number;
+  orderNumber?: number;
 }
 
 export interface IProfileNavigation {
@@ -139,4 +145,67 @@ export interface IOrderState {
   isLoading: boolean;
   error: string | null;
   orderData: IOrderData | null;
+}
+
+export type TCreated = {
+  created?: boolean
+  order?: {
+    createdAt: string
+    ingredients: string[]
+    name: string
+    number: number
+    status: string
+    updatedAt: string
+    _id: string
+  }
+}
+
+export interface IIngredientImages {
+  [key: string]: string;
+}
+
+export interface OrderInfoProps {
+  isModal?: boolean;
+}
+
+export interface IWsOrder {
+  _id: string;
+  number: number;
+  status: string;
+  name: string;
+  ingredients: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IOrders {
+  orders: IWsOrder[];
+  total: number;
+  totalToday: number;
+}
+
+export interface InfoCartProps {
+  ingredient: {
+    _id: string;
+    name: string;
+    image: string;
+    price: number;
+  };
+  count: number; 
+}
+
+export enum WebSocketStatus {
+  CONNECTING = 'CONNECTING...',
+  ONLINE = 'ONLINE',
+  OFFLINE = 'OFFLINE'
+}
+
+
+export interface IWebSocketMessage {
+  type: string;
+  message: string
+}
+
+export interface IWebSocketPayload {
+  message?: string; 
 }

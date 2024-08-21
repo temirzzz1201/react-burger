@@ -1,15 +1,7 @@
-import {
-  Routes,
-  Route,
-  useLocation,
-  useNavigate,
-  useMatch,
-  PathMatch,
-} from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useAppDispatch } from "../hooks/useAppDispatch";
-import { useAppSelector } from "../hooks/useAppSelector";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ErrorPage from "../pages/404/404";
 import ForgotPassword from "../pages/forgot-password/forgot-password";
 import Ingredients from "../pages/ingredients/ingredients";
@@ -17,25 +9,23 @@ import Login from "../pages/login/login";
 import Profile from "../pages/profile/profile";
 import Register from "../pages/register/register";
 import ResetPassword from "../pages/reset-password/reset-password";
-import OrderFeed from "../pages/order-feed/order-feed";
+import Feed from "../pages/feed/feed";
 import ProtectedRoute from "./protected-route/protected-route";
 import Home from "../pages/home/home";
-import OrdersHistory from "../pages/orders-history/orders-history";
+import Orders from "../pages/orders/orders";
+import OrderInfo from "../pages/order-info/order-info";
 import { fetchUserDetails } from "../services/actions";
 import Modal from "./modal/modal";
 import IngredientDetails from "./ingredient-details/ingredient-details";
 import { fetchIngredients } from "../services/actions";
 import { setFromForgotPassword } from "../services/passwordRecovery";
-import { IIngredient } from "../types";
+import Header from "./app-header/app-header";
 
 const App = () => {
   const dispatch = useAppDispatch();
-  let location = useLocation();
-  let navigate = useNavigate();
-  let state = location.state;
-
-  const match: PathMatch<"id"> | null = useMatch("/ingredients/:id");
-  const id = match?.params.id;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const state = location.state;
 
   useEffect(() => {
     if (Cookies.get("accessToken")) {
@@ -43,27 +33,9 @@ const App = () => {
     }
   }, [dispatch]);
 
-  const { data: ingredients } = useAppSelector((state) => state.ingredient);
-
   useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
-
-  const initialIngredient: IIngredient | null = null;
-
-  const [ingredient, setIngredient] = useState<IIngredient | null>(
-    initialIngredient
-  );
-
-  useEffect(() => {
-    if (id && ingredients.length > 0) {
-      const foundIngredient = ingredients.find(
-        (item: IIngredient) => item._id === id
-      );
-
-      setIngredient(foundIngredient || null);
-    }
-  }, [id, ingredients]);
 
   const handleCloseModal = () => {
     navigate(state?.backgroundLocation || "/", { replace: true });
@@ -71,6 +43,7 @@ const App = () => {
 
   return (
     <>
+      <Header />
       <Routes location={state?.backgroundLocation || location}>
         <Route index element={<Home />} />
         <Route path="ingredients/:id" element={<Ingredients />} />
@@ -90,8 +63,8 @@ const App = () => {
           element={<ProtectedRoute component={<Profile />} />}
         />
         <Route
-          path="profile/orders-history"
-          element={<ProtectedRoute component={<OrdersHistory />} />}
+          path="profile/orders"
+          element={<ProtectedRoute component={<Orders />} />}
         />
         <Route
           path="reset-password"
@@ -115,11 +88,19 @@ const App = () => {
             />
           }
         />
-        <Route path="order-feed" element={<OrderFeed />} />
+        <Route path="feed" element={<Feed />} />
+        <Route
+          path="feed/:number"
+          element={<ProtectedRoute component={<OrderInfo />} />}
+        />
+        <Route
+          path="profile/orders/:number"
+          element={<ProtectedRoute component={<OrderInfo />} />}
+        />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
 
-      {state?.backgroundLocation && ingredient && (
+      {state?.backgroundLocation && (
         <Routes>
           <Route
             path="/ingredients/:id"
@@ -128,7 +109,29 @@ const App = () => {
                 title="Детали ингредиента"
                 classModal="modal__ingredient"
                 onClose={handleCloseModal}>
-                <IngredientDetails product={ingredient} />
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:number"
+            element={
+              <Modal
+                title=""
+                classModal="modal__order"
+                onClose={handleCloseModal}>
+                <OrderInfo isModal />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:number"
+            element={
+              <Modal
+                title=""
+                classModal="modal__feed"
+                onClose={handleCloseModal}>
+                <OrderInfo isModal />
               </Modal>
             }
           />

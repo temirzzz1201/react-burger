@@ -2,10 +2,23 @@ import classes from "./ingredient-details.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { IIngredientProps } from "../../types/index.js";
+import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../hooks/useAppSelector";
 
-const IngredientDetails: React.FC<IIngredientProps> = ({ product }) => {
-  if (!product) {
-    return <p className="text text_type_main-medium">Продукт не найден</p>;
+const IngredientDetails: React.FC<IIngredientProps> = () => {
+  const { id } = useParams<{ id: string }>();
+
+  const ingredients = useAppSelector((state) => state.ingredient.data);
+
+  const ingredient =
+    ingredients.length > 0
+      ? ingredients.find((item) => item._id === id)
+      : undefined;
+
+  const isLoading = useAppSelector((state) => state.ingredient.isLoading);
+
+  if (isLoading) {
+    return <p>Загрузка...</p>;
   }
 
   return (
@@ -13,13 +26,13 @@ const IngredientDetails: React.FC<IIngredientProps> = ({ product }) => {
       <div className={classes.detail__img__wrapper}>
         <LazyLoadImage
           className={classes.detail__img}
-          src={product?.image_large}
-          alt={product?.image_large}
+          src={ingredient?.image_large}
+          alt={ingredient?.image_large}
           effect="blur"
         />
         <div className={classes.detail__title}>
           <p className="text text_type_main-medium mt-4 mb-8">
-            {product?.name}
+            {ingredient?.name}
           </p>
         </div>
         <div className={classes.detail__info}>
@@ -28,7 +41,7 @@ const IngredientDetails: React.FC<IIngredientProps> = ({ product }) => {
               Калории,калл
             </p>
             <span className="text text_type_main-default text_color_inactive text_type_digits-default">
-              {product.calories}
+              {ingredient?.calories}
             </span>
           </div>
           <div className={classes.detail__info__item}>
@@ -36,7 +49,7 @@ const IngredientDetails: React.FC<IIngredientProps> = ({ product }) => {
               Белки, г
             </p>
             <span className="text text_type_main-default text_color_inactive text_type_digits-default">
-              {product.proteins}
+              {ingredient?.proteins}
             </span>
           </div>
           <div className={classes.detail__info__item}>
@@ -44,7 +57,7 @@ const IngredientDetails: React.FC<IIngredientProps> = ({ product }) => {
               Жиры, г
             </p>
             <span className="text text_type_main-default text_color_inactive text_type_digits-default">
-              {product.fat}
+              {ingredient?.fat}
             </span>
           </div>
           <div className={classes.detail__info__item}>
@@ -52,7 +65,7 @@ const IngredientDetails: React.FC<IIngredientProps> = ({ product }) => {
               Углеводы, г
             </p>
             <span className="text text_type_main-default text_color_inactive text_type_digits-default">
-              {product.carbohydrates}
+              {ingredient?.carbohydrates}
             </span>
           </div>
         </div>

@@ -1,0 +1,13 @@
+.orders {
+  display: flex;
+  margin-top: 120px;
+  margin-bottom: 120px;
+
+  &__carts {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 870px;
+    padding-right: 8px;
+  }
+}

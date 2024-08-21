@@ -8,7 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { IIngredientProps } from "../../types/index.js";
+import { IIngredientProps } from "../../types";
 
 const IngredientCart: React.FC<IIngredientProps> = ({ product }) => {
   const ingredientCounts = useAppSelector(
@@ -19,6 +19,10 @@ const IngredientCart: React.FC<IIngredientProps> = ({ product }) => {
     type: "ingredient",
     item: { ...product },
   });
+
+  if (!product) {
+    return null;
+  }
 
   const count = ingredientCounts[product._id] || 0;
 

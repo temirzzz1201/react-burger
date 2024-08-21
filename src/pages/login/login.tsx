@@ -5,7 +5,6 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import Header from "../../components/app-header/app-header";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../services/actions";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
@@ -44,7 +43,6 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className={classes.login}>
           <p className="text text_type_main-medium mb-6">Вход</p>
@@ -74,8 +72,10 @@ const Login: React.FC = () => {
           </form>
           {error && (
             <p className={classes.login__error}>
-              {error.message ||
-                "Ошибка входа. Проверьте ваши данные и попробуйте снова."}
+              {typeof error === "string"
+                ? error
+                : error.message ||
+                  "Ошибка входа. Проверьте ваши данные и попробуйте снова."}
             </p>
           )}
           <p className="text text_type_main-default text_color_inactive">

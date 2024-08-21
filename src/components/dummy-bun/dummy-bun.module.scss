@@ -1,0 +1,29 @@
+.bun {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #2f2f37;
+  max-width: 536px;
+  width: 100%;
+  max-height: 80px;
+  color: #F2F2F3;
+  flex-grow: 1;
+  border-radius: 88px 88px 40px 40px;
+
+  &_upsidedown {
+    transform: rotate(180deg);
+  }
+}
+
+.ingredient {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #2f2f37;
+  border-radius: 25px;
+  max-width: 536px;
+  width: 100%;
+  margin: 10px 0;
+}

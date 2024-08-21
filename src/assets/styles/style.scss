@@ -23,7 +23,6 @@
 
   &__content {
     display: flex;
-    padding: 0 20px;
   }
 }
 
@@ -53,8 +52,39 @@
   z-index: 999;
 }
 
+.spiner__wrapper_modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
 a {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+}
+
+.truncate_long,
+.truncate_short {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 755px; 
+}
+
+.truncate_short {
+  max-width: 495px;
+}
+
+.status-done {
+  color: #00CCCC; 
+}
+
+.status-in-process {
+  color: #F2F2F3; 
+}
+
+.status-rejected {
+  color: red; 
 }

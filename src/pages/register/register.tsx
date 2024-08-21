@@ -4,7 +4,6 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import Header from "../../components/app-header/app-header";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useAppSelector } from "../../hooks/useAppSelector";
@@ -43,7 +42,6 @@ const Register: React.FC = () => {
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className={classes.register}>
           <p className="text text_type_main-medium mb-6">Регистрация</p>
@@ -80,8 +78,11 @@ const Register: React.FC = () => {
             </Button>
           </form>
           {error && (
-            <p className="text text_type_main-default text_color_error">
-              {error}
+            <p className={classes.login__error}>
+              {typeof error === "string"
+                ? error
+                : error.message ||
+                  "Ошибка регистрации. Проверьте ваши данные и попробуйте снова."}
             </p>
           )}
           <p className="text text_type_main-default text_color_inactive">

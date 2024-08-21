@@ -1,0 +1,44 @@
+.info {
+    display: flex;
+    flex-direction: column;
+    max-width: 640px;
+    margin: 122px auto 0;
+
+    &_modal {
+      margin: 0 80px 40px;
+    }
+  
+    &__order {
+      text-align: center;
+    }
+
+    &__order_modal {
+      text-align: start;
+    }
+  
+    &__ready {
+      color: #00CCCC;
+      margin-bottom: 60px;
+    }
+  
+    &__cart__wrapper {
+      max-height: 320px;
+      overflow-y: auto;
+      padding-right: 24px;
+      margin-bottom: 48px;
+    }
+  
+    &__count__wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    &__count {
+      display: flex;
+      align-items: center;
+      p {
+        margin-right: 5px;
+      }
+    }
+  }

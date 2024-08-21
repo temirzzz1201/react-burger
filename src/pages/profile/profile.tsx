@@ -5,7 +5,6 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import Header from "../../components/app-header/app-header";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useAppSelector } from "../../hooks/useAppSelector";
@@ -62,12 +61,15 @@ const Profile: React.FC = () => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <p className="text text_type_main-default text_color_error">
+        Error: {typeof error === "string" ? error : error.message}
+      </p>
+    );
   }
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className={classes.profile}>
           <ProfileNavigation isProfilePage />

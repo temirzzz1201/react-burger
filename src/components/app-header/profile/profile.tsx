@@ -1,6 +1,5 @@
 import classes from "./profile.module.scss";
 import { NavLink } from "react-router-dom";
-// import { useSelector } from "react-redux";
 import { useAppSelector } from "../../../hooks/useAppSelector";
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Audio } from "react-loader-spinner";
