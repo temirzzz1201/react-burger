@@ -2,7 +2,6 @@ import classes from "./ingredients.module.scss";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
-import Header from "../../components/app-header/app-header";
 
 const Ingredients: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,7 +23,6 @@ const Ingredients: React.FC = () => {
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className={classes.ingredients}>
           {ingredient && <IngredientDetails />}

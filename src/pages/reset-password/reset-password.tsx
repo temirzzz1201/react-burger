@@ -5,7 +5,6 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import Header from "../../components/app-header/app-header";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useAppSelector } from "../../hooks/useAppSelector";
@@ -56,7 +55,6 @@ const ResetPassword: React.FC = () => {
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className={classes.reset}>
           <p className="text text_type_main-medium mb-6">

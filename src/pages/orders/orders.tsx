@@ -1,5 +1,4 @@
 import classes from "./orders.module.scss";
-import Header from "../../components/app-header/app-header";
 import ProfileNavigation from "../../components/profile-navigation/profile-navigation";
 import { useEffect } from "react";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
@@ -39,7 +38,6 @@ const Orders: React.FC = () => {
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className={classes.orders}>
           <ProfileNavigation />

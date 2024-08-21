@@ -19,6 +19,7 @@ import Modal from "./modal/modal";
 import IngredientDetails from "./ingredient-details/ingredient-details";
 import { fetchIngredients } from "../services/actions";
 import { setFromForgotPassword } from "../services/passwordRecovery";
+import Header from "./app-header/app-header";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -42,6 +43,7 @@ const App = () => {
 
   return (
     <>
+      <Header />
       <Routes location={state?.backgroundLocation || location}>
         <Route index element={<Home />} />
         <Route path="ingredients/:id" element={<Ingredients />} />

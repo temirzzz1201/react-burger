@@ -1,5 +1,4 @@
 import classes from "./feed.module.scss";
-import Header from "../../components/app-header/app-header";
 import FeedCart from "../../components/feed-cart/feed-cart";
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -53,7 +52,6 @@ const Feed: React.FC = () => {
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className={classes.feed}>
           <p className="text text_type_main-large mb-5">Лента заказов</p>

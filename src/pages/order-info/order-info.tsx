@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { fetchOrderDetails } from "../../services/actions";
-import Header from "../../components/app-header/app-header";
 import InfoCart from "../../components/info-cart/info-cart";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IIngredient, OrderInfoProps, IWsOrder } from "../../types";
@@ -84,7 +83,6 @@ const OrderInfo: React.FC<OrderInfoProps> = ({ isModal }) => {
 
   return (
     <>
-      {!isModal && <Header />}
       <div className="container">
         <div className={`${classes.info} ${isModal ? classes.info_modal : ""}`}>
           <p

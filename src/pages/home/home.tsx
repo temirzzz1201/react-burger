@@ -3,7 +3,6 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useMemo } from "react";
 import { useAppSelector } from "../../hooks/useAppSelector";
-import AppHeader from "../../components/app-header/app-header";
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import { TailSpin } from "react-loader-spinner";
@@ -49,7 +48,6 @@ const Home: React.FC = () => {
     <>
       <DndProvider backend={HTML5Backend}>
         <div className="app">
-          <AppHeader />
           <main className="main">
             <div className="container">
               <p className="text text_type_main-large mt-10 mb-5">

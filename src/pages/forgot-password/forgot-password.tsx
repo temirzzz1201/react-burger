@@ -3,7 +3,6 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import Header from "../../components/app-header/app-header";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useAppSelector } from "../../hooks/useAppSelector";
@@ -50,7 +49,6 @@ const ForgotPassword: React.FC<IForgotPasswordProps> = ({
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className={classes.forgot}>
           <p className="text text_type_main-medium mb-6">
