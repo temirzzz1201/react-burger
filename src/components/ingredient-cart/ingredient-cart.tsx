@@ -27,7 +27,10 @@ const IngredientCart: React.FC<IIngredientProps> = ({ product }) => {
   const count = ingredientCounts[product._id] || 0;
 
   return (
-    <div className={classes.cart} ref={dragRef}>
+    <div
+      className={classes.cart}
+      ref={dragRef}
+      data-test={`ingredient-item-${product._id}`}>
       {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
       <LazyLoadImage
         className={classes.cart__img}

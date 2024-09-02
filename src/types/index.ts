@@ -37,6 +37,7 @@ export interface IIngredient {
   __v?: number;
   position?: string;  
   number?: number
+  dataTestId?: string
 }
 
 export interface IBurgerIngredientsProps {
@@ -84,6 +85,7 @@ export interface IConstructorCartProps {
   onRemove?: () => void;
   index: number;
   moveCard?: (dragIndex: number, hoverIndex: number) => void;
+  dataTestId: string
 }
 
 export interface IDragItem {
@@ -105,10 +107,12 @@ export interface IModalProps {
   children: ReactNode;
   onClose: () => void;
   classModal?: string;
+  
 }
 
 export interface IOrderDetailsProps {
   orderNumber?: number;
+  dataTestId: string
 }
 
 export interface IProfileNavigation {
