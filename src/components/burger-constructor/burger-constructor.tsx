@@ -92,7 +92,10 @@ const BurgerConstructor: React.FC = () => {
   });
 
   return (
-    <div className={classes.construct} ref={dropRef}>
+    <div
+      className={classes.construct}
+      ref={dropRef}
+      data-test="burger-constructor">
       {bun || ingredients.length > 0 ? (
         <>
           {bun && (
@@ -103,6 +106,7 @@ const BurgerConstructor: React.FC = () => {
               price={bun.price}
               thumbnail={bun.image || ""}
               index={0}
+              dataTestId="constructor-cart-bun-top"
             />
           )}
           <div className={classes.construct__scrollable}>
@@ -121,6 +125,7 @@ const BurgerConstructor: React.FC = () => {
                     moveCard={(dragIndex: number, hoverIndex: number) =>
                       dispatch(moveIngredient({ dragIndex, hoverIndex }))
                     }
+                    dataTestId={`constructor-cart-${product.uniqueId}`}
                   />
                 )
             )}
@@ -133,14 +138,15 @@ const BurgerConstructor: React.FC = () => {
               price={bun.price}
               thumbnail={bun.image}
               index={0}
+              dataTestId="constructor-cart-bun-bottom"
             />
           )}
         </>
       ) : (
-        <DummyBun />
+        <DummyBun data-test="dummy-bun" />
       )}
 
-      <div className={classes.construct__result}>
+      <div className={classes.construct__result} data-test="constructor-result">
         <div className={classes.construct__result__total}>
           <p className="text text_type_digits-medium">{totalPrice}</p>
           <CurrencyIcon type="primary" />
@@ -150,18 +156,24 @@ const BurgerConstructor: React.FC = () => {
           htmlType="button"
           type="primary"
           size="large"
-          disabled={isLoading}>
+          disabled={isLoading}
+          data-test="order-button">
           {isLoading ? "Загрузка..." : "Оформить заказ"}
         </Button>
       </div>
       {isModalOpen && (
-        <Modal onClose={closeModal} classModal="modal__constructor">
+        <Modal
+          onClose={closeModal}
+          classModal="modal__constructor"
+          data-test="modal">
           {localError && (
-            <p className="text text_type_main-medium">{localError}</p>
+            <p className="text text_type_main-medium" data-test="modal-error">
+              {localError}
+            </p>
           )}
 
           {isLoading && (
-            <div className={classes.construct__user}>
+            <div className={classes.construct__user} data-test="modal-loading">
               <p className="text text_type_main-medium mt-5 mb-8">
                 {`Размещаем заказ пользователя ${user?.name?.toUpperCase()}`}
                 <br />
@@ -173,8 +185,19 @@ const BurgerConstructor: React.FC = () => {
             </div>
           )}
 
-          {error && <p className="text text_type_main-medium">{error}</p>}
-          {orderData && <OrderDetails orderNumber={orderData.order.number} />}
+          {error && (
+            <p
+              className="text text_type_main-medium"
+              data-test="modal-error-message">
+              {error}
+            </p>
+          )}
+          {orderData && (
+            <OrderDetails
+              orderNumber={orderData.order.number}
+              dataTestId="order-number"
+            />
+          )}
         </Modal>
       )}
     </div>

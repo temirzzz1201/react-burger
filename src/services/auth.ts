@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { register, login, logout, resetPassword, setNewPassword, fetchUserDetails, updateUser } from './actions';
 import { IAuthState } from '../types';
 
-const initialState: IAuthState = {
+export const initialState: IAuthState = {
   user: null,
   isAuthenticated: false,
   isLoading: false,

@@ -26,10 +26,12 @@ const Modal: React.FC<IModalProps> = ({
 
   return ReactDOM.createPortal(
     <ModalOverlay onClose={onClose}>
-      <div className={[classes.modal, classModal].join(" ")}>
+      <div className={[classes.modal, classModal].join(" ")} data-test="modal">
         <div className={classes.modal__navigation}>
           <p className="text text_type_main-large">{title}</p>
-          <CloseIcon type="primary" onClick={onClose} />
+          <div data-test="close-modal">
+            <CloseIcon type="primary" onClick={onClose} />
+          </div>
         </div>
         {children}
       </div>

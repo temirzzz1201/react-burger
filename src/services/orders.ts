@@ -8,7 +8,7 @@ export type LiveOrderStore = {
   error: string,
 };
 
-const initialState: LiveOrderStore = {
+export const initialState: LiveOrderStore = {
   status: WebSocketStatus.OFFLINE,
   orders: null,
   error: '',

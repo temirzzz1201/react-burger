@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { uid } from "uid";
 import { IIngredient, IBurgerConstructorState } from "../types";
 
-const initialState: IBurgerConstructorState = {
+export const initialState: IBurgerConstructorState = {
   bun: null,
   ingredients: [],
   ingredientCounts: {},

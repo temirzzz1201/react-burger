@@ -21,6 +21,7 @@ const ConstructorCart: React.FC<IConstructorCartProps> = ({
   onRemove,
   index,
   moveCard,
+  dataTestId,
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -65,7 +66,8 @@ const ConstructorCart: React.FC<IConstructorCartProps> = ({
   return (
     <div
       ref={ref}
-      className={`${classes.cart} ${isDragging ? classes.dragging : ""}`}>
+      className={`${classes.cart} ${isDragging ? classes.dragging : ""}`}
+      data-test={dataTestId}>
       {isLocked ? (
         <div className={classes.cart__wrapper}>
           <ConstructorElement
@@ -77,9 +79,13 @@ const ConstructorCart: React.FC<IConstructorCartProps> = ({
           />
         </div>
       ) : (
-        <div className={classes.cart__wrapper_dragged}>
-          <DragIcon type="primary" />
+        <div className={classes.cart__wrapper}>
+          <div className={classes.cart__wrapper__icon}>
+            <DragIcon type="primary" />
+          </div>
           <ConstructorElement
+            type={type}
+            isLocked={isLocked ? isLocked : false}
             text={text}
             price={price}
             thumbnail={thumbnail}

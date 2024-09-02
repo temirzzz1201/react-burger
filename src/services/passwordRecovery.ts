@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PasswordRecoveryState } from '../types';
 
-const initialState: PasswordRecoveryState = {
+export const initialState: PasswordRecoveryState = {
   fromForgotPassword: JSON.parse(localStorage.getItem('fromForgotPassword') || 'false'),
   redirectPath: null,
 };

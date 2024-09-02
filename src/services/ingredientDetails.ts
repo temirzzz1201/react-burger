@@ -4,7 +4,7 @@ type TIngredientDetailsSlice = {
   isOpen: boolean
 }
 
-const initialState: TIngredientDetailsSlice = {
+export const initialState: TIngredientDetailsSlice = {
   isOpen: false,
 };
 

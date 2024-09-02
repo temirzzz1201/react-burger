@@ -3,9 +3,12 @@ import Done from "../../assets/images/done.svg";
 import { IOrderDetailsProps } from "../../types";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const OrderDetails: React.FC<IOrderDetailsProps> = ({ orderNumber }) => {
+const OrderDetails: React.FC<IOrderDetailsProps> = ({
+  orderNumber,
+  dataTestId,
+}) => {
   return (
-    <div className={classes.detail}>
+    <div className={classes.detail} data-test={dataTestId}>
       <p className="text text_type_digits-large mb-8 mt-2">{orderNumber}</p>
       <p className="text text_type_main-default mb-15">идентификатор заказа</p>
       <div className="mb-15">
