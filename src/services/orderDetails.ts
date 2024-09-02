@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { placeOrder } from "./actions";
 import { IOrderData, IOrderState } from "../types";
 
-const initialState: IOrderState = {
+export const initialState: IOrderState = {
   isLoading: false,
   error: null,
   orderData: null,

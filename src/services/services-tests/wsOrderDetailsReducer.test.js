@@ -1,13 +1,7 @@
-import wsOrderDetailsReducer from '../wsOrderDetails';
+import wsOrderDetailsReducer, {initialState} from '../wsOrderDetails';
 import { fetchOrderDetails } from '../actions';
 
 describe('wsOrderDetails reducer', () => {
-  const initialState = {
-    order: null,
-    loading: false,
-    error: null,
-  };
-
   it('should return the initial state', () => {
     expect(wsOrderDetailsReducer(undefined, { type: undefined })).toEqual(initialState);
   });

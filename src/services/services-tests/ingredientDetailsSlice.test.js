@@ -1,10 +1,6 @@
-import ingredientDetailsReducer, { openModal, closeModal } from '../ingredientDetails';
+import ingredientDetailsReducer, { openModal, closeModal, initialState } from '../ingredientDetails';
 
 describe('ingredientDetailsSlice reducer', () => {
-  const initialState = {
-    isOpen: false,
-  };
-
   it('should return the initial state', () => {
     expect(ingredientDetailsReducer(undefined, { type: undefined })).toEqual(initialState);
   });

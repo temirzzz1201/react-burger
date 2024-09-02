@@ -1,4 +1,5 @@
 describe('Burger Constructor E2E Tests', () => {
+  const testUrl = 'http://localhost:3000';
   const ingredientItemSelector = '[data-test^="ingredient-item"]';
   const burgerConstructorSelector = '[data-test="burger-constructor"]';
   const constructorCartSelector = '[data-test^="constructor-cart"]';
@@ -15,7 +16,7 @@ describe('Burger Constructor E2E Tests', () => {
     window.localStorage.setItem('refreshToken', JSON.stringify('test-refreshToken'));
     cy.setCookie('accessToken', 'test-accessToken');
 
-    cy.visit('http://localhost:3000');
+    cy.visit(testUrl);
   });
 
   it('should drag and drop ingredients to constructor', () => {

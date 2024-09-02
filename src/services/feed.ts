@@ -8,7 +8,7 @@ export type FeedTableStore = {
   error: string,
 };
 
-const initialState: FeedTableStore = {
+export const initialState: FeedTableStore = {
   status: WebSocketStatus.OFFLINE,
   feedOrders: null,
   error: '',

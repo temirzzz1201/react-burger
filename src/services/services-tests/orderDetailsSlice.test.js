@@ -1,13 +1,7 @@
-import orderDetailsReducer from '../orderDetails';
+import orderDetailsReducer, {initialState} from '../orderDetails';
 import { placeOrder } from '../actions';
 
 describe('orderDetailsSlice reducer', () => {
-  const initialState = {
-    isLoading: false,
-    error: null,
-    orderData: null,
-  };
-
   it('should return the initial state', () => {
     expect(orderDetailsReducer(undefined, { type: undefined })).toEqual(initialState);
   });

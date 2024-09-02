@@ -1,16 +1,8 @@
-import authReducer from '../auth';
-import  { IAuthState } from '../../types';
+import authReducer, {initialState} from '../auth';
 
 import { logout, register } from '../actions';
 
 describe('auth reducer', () => {
-  const initialState = {
-    user: null,
-    isAuthenticated: false,
-    isLoading: false,
-    error: null,
-  };
-
   it('should handle initial state', () => {
     expect(authReducer(undefined, { type: 'unknown' })).toEqual(initialState);
   });

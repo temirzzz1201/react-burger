@@ -1,14 +1,8 @@
-import orderSlice from '../orders';
+import orderSlice, {initialState} from '../orders';
 import { wsLiveOrderConnecting, wsLiveOrderError, wsLiveOrderMessage, wsLiveOrderOpen } from '../actions';
 import { WebSocketStatus } from '../../types';
 
 describe('orderSlice reducer', () => {
-  const initialState = {
-    status: WebSocketStatus.OFFLINE,
-    orders: null,
-    error: '',
-  };
-
   it('should return the initial state', () => {
     expect(orderSlice(undefined, { type: undefined })).toEqual(initialState);
   });

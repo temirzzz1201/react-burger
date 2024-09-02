@@ -1,11 +1,6 @@
-import burgerConstructorReducer, { addIngredient, removeIngredient, clearIngredients } from '../burgerConstructor';
+import burgerConstructorReducer, { addIngredient, removeIngredient, clearIngredients, initialState } from '../burgerConstructor';
 
 describe('burgerConstructor reducer', () => {
-  const initialState = {
-    bun: null,
-    ingredients: [],
-    ingredientCounts: {},
-  };
 
   const testIngredient = {
     _id: '1',

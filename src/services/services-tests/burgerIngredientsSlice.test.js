@@ -1,13 +1,7 @@
-import burgerIngredientsReducer from '../burgerIngredients';
+import burgerIngredientsReducer, {initialState} from '../burgerIngredients';
 import { fetchIngredients } from '../actions';
 
 describe('burgerIngredients reducer', () => {
-  const initialState = {
-    data: [],
-    isLoading: false,
-    error: null,
-  };
-
   it('should handle initial state', () => {
     expect(burgerIngredientsReducer(undefined, { type: 'unknown' })).toEqual(initialState);
   });

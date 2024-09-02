@@ -1,11 +1,6 @@
-import passwordRecoveryReducer, { setFromForgotPassword } from '../passwordRecovery';
+import passwordRecoveryReducer, { setFromForgotPassword, initialState } from '../passwordRecovery';
 
 describe('passwordRecoverySlice reducer', () => {
-  const initialState = {
-    fromForgotPassword: false,
-    redirectPath: null,
-  };
-
   it('should return the initial state', () => {
     expect(passwordRecoveryReducer(undefined, { type: undefined })).toEqual(initialState);
   });
